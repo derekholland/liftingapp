@@ -1,3 +1,4 @@
+import { revalidatePath } from 'next/cache';
 import { NextResponse } from 'next/server';
 import { prisma } from '../../lib/prisma'; // Adjust the import path to match your prisma setup
 
@@ -47,6 +48,7 @@ export async function POST(request: Request) {
 		// Create the response and disable caching
 		const response = NextResponse.json(newWorkout);
 		response.headers.set('Cache-Control', 'no-store'); // Disable caching for real-time updates
+		revalidatePath('/');
 		return response;
 
 		// return NextResponse.json({

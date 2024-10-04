@@ -2,6 +2,7 @@
 
 import { NextResponse } from 'next/server';
 import { prisma } from '../../../lib/prisma';
+import { revalidatePath } from 'next/cache';
 
 interface Set {
 	id?: number;
@@ -62,6 +63,7 @@ export async function PUT(
 		// Create the response and disable caching
 		const response = NextResponse.json(updatedWorkout);
 		response.headers.set('Cache-Control', 'no-store'); // Ensure changes reflect immediately
+		revalidatePath('/');
 		return response;
 
 		// return NextResponse.json(updatedWorkout); // Return updated workout
