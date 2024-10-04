@@ -61,12 +61,12 @@ export async function PUT(
 		});
 
 		// Create the response and disable caching
-		const response = NextResponse.json(updatedWorkout);
-		response.headers.set('Cache-Control', 'no-store'); // Ensure changes reflect immediately
-		revalidatePath('/');
-		return response;
+		// const response = NextResponse.json(updatedWorkout);
+		// // response.headers.set('Cache-Control', 'no-store'); // Ensure changes reflect immediately
+		// return response;
 
-		// return NextResponse.json(updatedWorkout); // Return updated workout
+		revalidatePath('/');
+		return NextResponse.json(updatedWorkout); // Return updated workout
 	} catch (error) {
 		console.error('Error updating workout:', error); // Log any errors
 		return NextResponse.json(

@@ -17,7 +17,7 @@ export async function DELETE(
 		const response = NextResponse.json({
 			message: 'Workout deleted successfully',
 		});
-		response.headers.set('Cache-Control', 'no-store'); // Disable caching to ensure the delete is reflected
+		// response.headers.set('Cache-Control', 'no-store'); // Disable caching to ensure the delete is reflected
 		// Revalidate the main workout page to remove the deleted workout
 		revalidatePath('/');
 		return response;

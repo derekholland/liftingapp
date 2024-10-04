@@ -46,15 +46,15 @@ export async function POST(request: Request) {
 		});
 
 		// Create the response and disable caching
-		const response = NextResponse.json(newWorkout);
-		response.headers.set('Cache-Control', 'no-store'); // Disable caching for real-time updates
-		revalidatePath('/');
-		return response;
+		// const response = NextResponse.json(newWorkout);
+		// response.headers.set('Cache-Control', 'no-store'); // Disable caching for real-time updates
+		// return response;
 
-		// return NextResponse.json({
-		// 	message: 'Workout created successfully',
-		// 	workout: newWorkout,
-		// });
+		revalidatePath('/');
+		return NextResponse.json({
+			message: 'Workout created successfully',
+			workout: newWorkout,
+		});
 	} catch (error) {
 		console.error('Error creating workout:', error);
 		return NextResponse.json(
