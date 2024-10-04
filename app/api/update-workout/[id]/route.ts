@@ -1,8 +1,5 @@
-// app/api/update-workout/[id]/route.ts
-
 import { NextResponse } from 'next/server';
 import { prisma } from '../../../lib/prisma';
-import { revalidatePath } from 'next/cache';
 
 interface Set {
 	id?: number;
@@ -61,12 +58,9 @@ export async function PUT(
 		});
 
 		// Create the response and disable caching
-		// const response = NextResponse.json(updatedWorkout);
-		// // response.headers.set('Cache-Control', 'no-store'); // Ensure changes reflect immediately
-		// return response;
-
-		revalidatePath('/');
-		return NextResponse.json(updatedWorkout); // Return updated workout
+		const response = NextResponse.json(updatedWorkout);
+		response.headers.set('Cache-Control', 'no-store'); // Disable cache to reflect changes immediately
+		return response;
 	} catch (error) {
 		console.error('Error updating workout:', error); // Log any errors
 		return NextResponse.json(

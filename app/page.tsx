@@ -8,10 +8,8 @@ import {
 	CardFooter,
 } from '@/components/ui/card';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { useState, useEffect } from 'react';
-
-// Fix for pages not updating in production
-// export const dynamic = 'force-dynamic';
 
 interface Set {
 	reps: number;
@@ -34,6 +32,7 @@ export default function MainPage() {
 	const [workouts, setWorkouts] = useState<Workout[]>([]);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState<string | null>(null);
+	const router = useRouter(); // Initialize the router for refresh
 
 	const fetchWorkouts = async () => {
 		try {
@@ -54,9 +53,11 @@ export default function MainPage() {
 		}
 	};
 
+	// Fetch workouts when the component mounts and refresh the page after redirect
 	useEffect(() => {
 		fetchWorkouts();
-	}, []); // Ensure this only runs once on mount
+		router.refresh(); // Ensure page refreshes after redirection
+	}, [router]);
 
 	if (loading) return <p>Loading...</p>;
 	if (error) return <p>{error}</p>;

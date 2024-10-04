@@ -3,6 +3,7 @@ import { prisma } from '../../lib/prisma';
 
 export async function GET() {
 	try {
+		// Fetch all workouts with exercises and sets included
 		const workouts = await prisma.workout.findMany({
 			include: {
 				exercises: {
@@ -13,8 +14,9 @@ export async function GET() {
 			},
 		});
 
+		// Create the response and disable caching with Cache-Control: no-store
 		const response = NextResponse.json(workouts);
-		response.headers.set('Cache-Control', 'no-store'); // Disable caching
+		response.headers.set('Cache-Control', 'no-store'); // Disable cache to fetch fresh data
 		return response;
 	} catch (error) {
 		console.error('Error fetching workouts:', error);
