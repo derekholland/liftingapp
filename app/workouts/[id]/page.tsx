@@ -5,6 +5,8 @@ import { useParams } from 'next/navigation';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import Link from 'next/link';
 
+export const dynamic = 'force-dynamic';
+
 // Define the structure of a workout, exercise, and set
 interface Set {
 	reps: number;
