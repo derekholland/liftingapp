@@ -11,7 +11,7 @@ import Link from 'next/link';
 import { useState, useEffect } from 'react';
 
 // Fix for pages not updating in production
-export const dynamic = 'force-dynamic';
+// export const dynamic = 'force-dynamic';
 
 interface Set {
 	reps: number;
